@@ -10,21 +10,29 @@ class Array
     half_num_rows = num_rows / 2
     
     half_num_rows.times do |row|
-      # -1 to adjust to index, -1 to not include the last
+      # `- 1` to adjust to index
+      # `- 1` to not include the last (it will be switched with the
+      #   first)
+      # `- row` to not include outer layers that have already been
+      #   rotated
       end_idx = num_cols - 1 - 1 - row
       
       (row..end_idx).each do |col|
         opp_col = num_cols - 1 - col
         opp_row = num_rows - 1 - row
 
-        copy[row][col],
-          copy[opp_col][row],
-          copy[opp_row][opp_col],
-          copy[col][opp_row] = 
-          copy[opp_col][row],
-          copy[opp_row][opp_col],
-          copy[col][opp_row],
-          copy[row][col]
+        # A possible scenario is [0, 1] in a 4x4 matrix
+        # [row, col] = [0, 1]
+        # [opp_row, opp_col] = [3, 2]
+
+        copy[row][col], # eg [0, 1]
+          copy[opp_col][row], # eg [2, 0]
+          copy[opp_row][opp_col], # eg [3, 2]
+          copy[col][opp_row] = # eg [1, 3]
+          copy[opp_col][row], # eg [2, 0]
+          copy[opp_row][opp_col], # eg [3, 2]
+          copy[col][opp_row], # eg [1, 3]
+          copy[row][col] # eg [0, 1]
       end
     end
 
