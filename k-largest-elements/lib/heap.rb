@@ -64,7 +64,7 @@ class BinaryMinHeap
         array[parent_index] =
         array[parent_index],
         array[switch_index]
-      self.heapify_down(array, switch_index, &prc)
+      self.heapify_down(array, switch_index, len, &prc)
     end
 
     array
